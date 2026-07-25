@@ -1,0 +1,39 @@
+name: Next.js CI
+
+# Bahagian ni yang menentukan bila Continuous Integration (CI) berjalan
+# Maksudnya CI akan berjalan bila push ke branch main
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest #bahagian ni guna komputer sementara Ubuntu milik GitHub
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 #Bahagian ni mengambil code repository
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 #Bahagin ni menyediakan Node.js
+        with:
+          node-version: 20
+          cache: npm
+
+      # Then github akan jalankan command dibawah
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check TypeScript
+        run: npx tsc --noEmit
+
+      - name: Build Next.js project
+        run: npm run build
