@@ -26,7 +26,7 @@ export default function LandPage(){
             <p className="font-pixel text-gray-300 tracking-[2px]"> Ask questions, explore ideas, solve problems, and get instant Ai powered assistance</p>
 
             <div className="flex flex-row p-2 mt-20 bg-yellow-500 shadow-[0_0_10px_#facc15] rounded-md font-pixel cursor-pointer">
-              <button className="text-white mr-2 cursor-pointer text-[13px]" onClick={handleStart}> Let's explore</button>
+              <button className="text-white mr-2 cursor-pointer text-[13px]" onClick={handleStart}> Let&apos;s start chatting</button>
               <MoveRight className="text-white cursor-pointer"/>
             </div>
         </div>
