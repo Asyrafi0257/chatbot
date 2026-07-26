@@ -5,7 +5,7 @@ name: Next.js CI
 on:
   push:
     branches:
-      - main
+      - "**"
 
   pull_request:
     branches:
@@ -13,27 +13,33 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest #bahagian ni guna komputer sementara Ubuntu milik GitHub
+    #bahagian ni guna komputer sementara Ubuntu milik GitHub
+    #maksudnya github akan menyediakan virtual machine(VM) sementara menggunakan sistem operasi Ubuntu
+    #semua command seperti npm ci, npm run build akan dijalankan di komputer sementara then bila workflow dh selesai komputer tersebut dipadam secara automatik
+    #Ia dipanggil Github runner
+    runs-on: ubuntu-latest 
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4 #Bahagian ni mengambil code repository
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 #Bahagin ni menyediakan Node.js
+        #Bahagin ni menyediakan Node.js
+        #Github akan install dan configure Node.js pada Runner
+        uses: actions/setup-node@v4 
         with:
           node-version: 20
-          cache: npm
+          cache: npm #simpan cache dependency so ia akan menjadikan pipeline akan lebih laju
 
       # Then github akan jalankan command dibawah
       - name: Install dependencies
-        run: npm ci
+        run: npm ci #npm ci lebih laju, consistent dan sesuai digunakan dalam CI/CD pipeline rather than npm install
 
       - name: Run ESLint
-        run: npm run lint
+        run: npm run lint #tugas dia check kualiti code. If ada error pipeline akan berhenti
 
       - name: Check TypeScript
-        run: npx tsc --noEmit
+        run: npx tsc --noEmit #tugas dia untuk menyemak semua TypeScript
 
       - name: Build Next.js project
-        run: npm run build
+        run: npm run build #tugas dia untuk build whole project Next.js

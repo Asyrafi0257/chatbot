@@ -10,12 +10,39 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-pixel: var(--font-pixelify-sans);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+  }
+}
+.typing-animation {
+  width: 28ch;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid white;
+  animation:
+    typing 3s steps(22),
+    cursor 0.7s step-end infinite;
+}
+
+/* keyframes => guna untuk cipta animation */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 28ch;
+  }
+}
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
   }
 }
 

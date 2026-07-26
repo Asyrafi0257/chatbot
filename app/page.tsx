@@ -1,65 +1,35 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import {MoveRight} from "lucide-react"
+import { useRouter } from "next/navigation";
+
+export default function LandPage(){
+  const router = useRouter();
+
+  const handleStart = () => {
+    router.push("/login");
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex flex-row h-screen">
+        <div className="bg-[#0F1724] w-full h-full flex flex-col items-center justify-center">
+            <h2 className="font-pixel text-white font-bold text-[60px] tracking-[2px] typing-animation"> <span className="text-yellow-500 [text-shadow:0_0_10px_#facc15]">Welcome,</span> to your AI Assistance</h2>
+            
+            {/* nk buat text divider */}
+            {/* shadow-[0_0_20px_#facc15] => 0 yang first tu horizontal offset, 0 second tu vertical offset then 20px tu blur radius*/}
+            <div className="flex items-center my-4">
+                <div className="flex-1 w-[400px] border-t-2 border-yellow-500 shadow-[0_0_20px_#facc15] "></div>
+                 <span className="mx-4 text-gray-500 text-sm scale-150">🤖</span>
+                 <div className="flex-1 w-[400px] border-t-2 border-yellow-500 shadow-[0_0_20px_#facc15]"></div>
+            </div>
+
+            <p className="font-pixel text-gray-300 tracking-[2px]"> Ask questions, explore ideas, solve problems, and get instant Ai powered assistance</p>
+
+            <div className="flex flex-row p-2 mt-20 bg-yellow-500 shadow-[0_0_10px_#facc15] rounded-md font-pixel cursor-pointer">
+              <button className="text-white mr-2 cursor-pointer text-[13px]" onClick={handleStart}> Let's explore</button>
+              <MoveRight className="text-white cursor-pointer"/>
+            </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
     </div>
-  );
+  )
 }
