@@ -22,7 +22,8 @@ export default function LandPage(){
                  <span className="mx-4 text-gray-500 text-sm scale-150">🤖</span>
                  <div className="flex-1 w-[400px] border-t-2 border-yellow-500 shadow-[0_0_20px_#facc15]"></div>
             </div>
-
+            
+            
             <p className="font-pixel text-gray-300 tracking-[2px]"> Ask questions, explore ideas, solve problems, and get instant Ai powered assistance</p>
 
             <div className="flex flex-row p-2 mt-20 bg-yellow-500 shadow-[0_0_10px_#facc15] rounded-md font-pixel cursor-pointer">
