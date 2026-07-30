@@ -13,7 +13,7 @@ export default function Login(){
     return (
         <div className="flex flex-col h-screen justify-center items-center bg-[#0F172A]">
             <h2 className="text-white text-[60px] font-bold font-pixel tracking-[3px]"><span className="text-yellow-500">AI </span>Assist</h2>
-            <p className="text-[16px] text-gray-300 tracking-[2px]">connect with your AI bestie awaits</p>
+            <p className="text-[16px] text-gray-300 tracking-[2px] font-pixel">connect with your AI bestie awaits</p>
             <div className="bg-[#1E293B] w-[500px] h-[330px] mt-7 p-3 rounded-xl shadow-[0_0_15px_#facc15] flex flex-col items-center">
                 <h2 className="uppercase text-white text-[30px] tracking-[2px] font-bold font-pixel">Login</h2>
 
@@ -48,7 +48,7 @@ export default function Login(){
 
                 {/* link untuk register */}
                 <div className="w-full flex flex-row mt-5 justify-center">
-                    <p className="tracking-[2px] text-white text-[13px]">Already have an account? <Link href={""} className="text-yellow-500 [text-shadow:0_0_10px_#facc15]">Sign Up</Link></p>
+                    <p className="tracking-[2px] text-white text-[13px]">Already have an account? <Link href={"/register"} className="text-yellow-500 [text-shadow:0_0_10px_#facc15]">Sign Up</Link></p>
                 </div>
             </div>
         </div>
