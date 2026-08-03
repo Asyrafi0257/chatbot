@@ -19,7 +19,7 @@ export default function Register(){
         setShowPassword(!showPassword);
     }
 
-    const handleSignUp = () => {
+    const handleSignIn = () => {
         router.push("/login");
     }
 
@@ -169,7 +169,7 @@ export default function Register(){
                                 </div>
 
                                 <div className="h-[30px] w-[110px] bg-yellow-500 flex flex-row items-center p-2 rounded-md shadow-[0_0_5px_#facc15] cursor-pointer">
-                                    <button className="w-full text-white cursor-pointer mr-2 font-pixel" onClick={handleSignUp}>Sign In</button>
+                                    <button className="w-full text-white cursor-pointer mr-2 font-pixel" onClick={handleSignIn}>Sign In</button>
                                     <ArrowRight className="text-white cursor-pointer"/>
                                 </div>
                             </div>
