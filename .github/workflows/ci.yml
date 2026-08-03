@@ -19,7 +19,7 @@ jobs:
     #Ia dipanggil Github runner
     runs-on: ubuntu-latest 
     env:
-      DATABASE_URL: ${{secret.DATABASE_URL}}
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
 
     steps:
       - name: Checkout repository
