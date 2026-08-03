@@ -30,7 +30,7 @@ jobs:
         #Github akan install dan configure Node.js pada Runner
         uses: actions/setup-node@v4 
         with:
-          node-version: 20
+          node-version: 24
           cache: npm #simpan cache dependency so ia akan menjadikan pipeline akan lebih laju
 
       # Then github akan jalankan command dibawah

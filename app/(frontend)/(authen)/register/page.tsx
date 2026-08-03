@@ -1,7 +1,6 @@
 "use client";
 
 import {User, UserRoundPen, Mail, Phone, Lock, LockKeyhole, ArrowRight, Eye, EyeOff} from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
