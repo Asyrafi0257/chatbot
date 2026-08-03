@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Register(){
-    const [showPassword, setShowPassword] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const [fullname, setFullName] = useState("");
     const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
@@ -47,8 +47,9 @@ export default function Register(){
             const data = await userRequest.json();
 
             //check if ada error
-            if(!userRequest.ok) return alert(data.message);
-            
+            if(!userRequest.ok) {
+                return alert(data.message);
+            }
             setFullName("");
             setUserName("");
             setEmail("");
@@ -68,7 +69,7 @@ export default function Register(){
                 <h2 className="text-white text-[40px] font-pixel font-bold tracking-[3px]">Let&apos;s Get <span className="text-yellow-500">Started!</span></h2>
                 <p className="text-white text-[15px] font-pixel tracking-[2px] text-center w-[550px] mt-3">create your account and treat yourself to a meal at the restaurant you love. Sign Up now</p>
 
-                <div className="mt-7 w-[700px] h-[500px] bg-[#1E293B] rounded-xl p-2 flex flex-col items-center shadow-[0_0_15px_#facc15]">
+                <div className="mt-7 w-[700px] h-[430px] bg-[#1E293B] rounded-xl p-2 flex flex-col items-center shadow-[0_0_15px_#facc15]">
                     <h2 className="text-white text-[30px] font-bold font-pixel tracking-[2px] uppercase">Register</h2>
 
                     {/* input for fullname and username */}
@@ -175,22 +176,6 @@ export default function Register(){
                             </div>
                         </div>
 
-                        {/* divider for login using google */}
-                        <div className="flex items-center my-5">
-                            <div className="flex-1 w-[200px] border-t-2 border-yellow-500 shadow-[0_0_20px_#facc15] "></div>
-                            <span className="font-bold font-pixel text-white tracking-[2px] mx-2"> Or With</span>
-                            <div className="flex-1 w-[200px] border-t-2 border-yellow-500 shadow-[0_0_20px_#facc15]"></div>
-                        </div>
-
-                        <div className="w-full flex flex-row justify-center">
-                              <Image
-                                    src="/images/logo-google.png"
-                                    alt="logo"
-                                    width={25}
-                                    height={25}
-                                    className="bg-white rounded-md p-1 cursor-pointer shadow-[0_0_5px_#facc15]"
-                                />
-                        </div>
                 </div>  
         </div>
     )
