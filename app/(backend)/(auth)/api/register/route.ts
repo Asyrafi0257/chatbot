@@ -85,7 +85,7 @@ export async function POST(request : NextRequest){
             status: 200,
         })
     }catch(error){
-        console.error("Internal server problem, Try again!")
+        console.log("Internal server problem, Try again!", error)
         return NextResponse.json({
             success: false,
             message : " Internal server problem, please try again!"
