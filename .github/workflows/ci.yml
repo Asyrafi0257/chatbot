@@ -18,6 +18,8 @@ jobs:
     #semua command seperti npm ci, npm run build akan dijalankan di komputer sementara then bila workflow dh selesai komputer tersebut dipadam secara automatik
     #Ia dipanggil Github runner
     runs-on: ubuntu-latest 
+    env:
+      DATABASE_URL: ${{secret.DATABASE_URL}}
 
     steps:
       - name: Checkout repository
