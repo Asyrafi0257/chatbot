@@ -71,7 +71,7 @@ export default function Login(){
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button onClick={handlePassword} className="cursor-pointer text-gray-300">
+                    <button onClick={handlePassword} className="cursor-pointer text-gray-300 mr-3">
                         {showPassword ? (
                             <Eye/>
                         ): (
