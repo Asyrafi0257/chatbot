@@ -56,8 +56,8 @@ export default function Login(){
                 <h2 className="uppercase text-white text-[30px] tracking-[2px] font-bold font-pixel">Login</h2>
 
                 {/* input email */}
-                <div className=" flex flex-row mt-5 w-[350px] outline-1 outline-offset-1 outline-yellow-300 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 rounded-md p-2">
-                    <Mail className="text-gray-300"/>
+                <div className=" flex flex-row mt-5 w-[350px] outline-1 outline-offset-1 outline-yellow-300 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 rounded-md">
+                    <Mail className="text-gray-300 bg-yellow-500 rounded-l-md h-[33px] w-[50px] outline outline-2 outline-yellow-500 p-1"/>
                     <input type="email" placeholder="abc@gmail.com" className="border-none outline-none w-full text-white ml-3"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -65,8 +65,8 @@ export default function Login(){
                 </div>
 
                 {/* input password */}
-                <div className=" flex flex-row mt-5 w-[350px] outline-1 outline-offset-1 outline-yellow-300 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 rounded-md p-2">
-                    <LockKeyhole className="text-gray-300"/>
+                <div className=" flex flex-row mt-5 w-[350px] outline-1 outline-offset-1 outline-yellow-300 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 rounded-md">
+                    <LockKeyhole className="text-gray-300 bg-yellow-500 rounded-l-md h-[33px] w-[50px] outline outline-2 outline-yellow-500 p-1"/>
                     <input type={showPassword ? "text" : "password"} placeholder="password" className="border-none outline-none w-full text-white ml-3"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -82,7 +82,7 @@ export default function Login(){
 
                 {/* forgot password */}
                 <div className="w-[350] flex flex-row justify-end">
-                    <Link className="text-white text-[13px] tracking-[2px] mt-2" href={""}>forgot password</Link>
+                    <Link className="text-white text-[13px] tracking-[2px] mt-2" href={"/forgot-password"}>forgot password</Link>
                 </div>
 
                 <div className="flex flex-row justify-center bg-yellow-500 w-[100px] h-[40px] p-2 mt-5 rounded-md shadow-[0_0_5px_#facc15] cursor-pointer">
