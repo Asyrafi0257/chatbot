@@ -2,9 +2,11 @@
 
 import { Mail } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ForgotPassword(){
     const [email, setEmail] = useState("");
+    const router = useRouter();
 
     const handleOTP = async () => {
         if(!email) return alert("Please enter your email");
@@ -27,7 +29,7 @@ export default function ForgotPassword(){
                 return alert(response.message);
             }
 
-            return alert("Please check your email to get OTP code.");
+            return router.push(`/otp?email=${encodeURIComponent(email)}`);
 
         }catch(error){
             console.log(error);

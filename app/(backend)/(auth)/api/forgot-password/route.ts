@@ -41,7 +41,7 @@ export async function POST(request:NextRequest){
         email,
     },
     data : {
-        otp,
+        otp : otp,
         otpExpiredAt : expiredOTP,
     }
    });
