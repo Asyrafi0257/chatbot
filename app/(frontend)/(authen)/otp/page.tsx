@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -82,7 +81,7 @@ export default function OTP(){
     return (
         <div className="flex flex-col h-screen justify-center items-center bg-[#0F1724]">
             <h2 className="text-white text-[30px] font-bold font-pixel tracking-[3px] uppercase">Enter OTP sent via <span className="text-yellow-500">Email</span> </h2>
-            <p className="text-white tracking-[2px] font-pixel text-[18px]">We've sent OTP to your email, Please check your email inbox.</p>
+            <p className="text-white tracking-[2px] font-pixel text-[18px]">We&apos;ve sent OTP to your email, Please check your email inbox.</p>
 
             <div className="mt-8 w-[500px] grid grid-cols-6 gap-5">
                 <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
@@ -111,7 +110,7 @@ export default function OTP(){
             </div>
 
             <div className="flex flex-row w-full justify-center items-center mt-5">
-                <p className="text-white">Didn't receive code? <span className="underline tracking-[2px] text-yellow-400 cursor-pointer">Resend</span> </p>
+                <p className="text-white">Didn&apos;t receive code? <span className="underline tracking-[2px] text-yellow-400 cursor-pointer">Resend</span> </p>
                 <div className="ml-3">
                     {timeLeft > 0 ? (
                         <p className="text-white">
