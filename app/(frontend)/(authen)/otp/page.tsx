@@ -8,6 +8,7 @@ function OTP(){
     //typescript type => nilai dibawah ada 2 nilai sahaja either string or null
     const [otpExpiry, setOtpExpiry] = useState<string | null>(null);
     const [timeLeft, setTimeLeft] = useState(0);
+    const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
     
     //kita nak ambil daripada url
     const searchParams = useSearchParams();
@@ -78,6 +79,112 @@ function OTP(){
 
     const seconds = timeLeft % 60;
 
+    //function untuk setiap input
+    const handleOtpChange = ( value : string, index : number) => {
+        
+        //only number
+        if (!/^\d?$/.test(value)) {
+        return;
+        }
+        const newOtp = [...otp];
+
+        newOtp[index] = value;
+
+        setOtp(newOtp);
+    }
+
+    //handle verify otp
+    const handleVerify = async () => {
+        try {
+            if(!email) {
+                return alert("email is missing!");
+            }
+
+            //combine otp
+            const otpValue = otp.join("");
+
+            //if otp length less than 6
+            if(otp.length !== 6){
+                return alert("Please enter complete OTP!");
+            }
+
+            const request = await fetch("/api/verify-otp", {
+                method: "POST",
+                headers : {
+                    "Content-type" : "application/json"
+                },
+                body : JSON.stringify({
+                    email : email,
+                    otp : otpValue
+                })
+            });
+
+            const data = await request.json();
+
+            if(!request.ok){
+                return alert(data.message);
+            }
+
+            return alert("OTP verified successfully!");
+
+        }catch(error){
+            console.log(error);
+            alert("Internal server problem, Please try again!");
+        }
+    }
+
+    const handleResend = async () => {
+        if(!email) {
+            return alert("Email is missing!");
+        }
+
+        try {
+            const response = await fetch("/api/resend-otp", {
+                method : "POST",
+                headers : {
+                    "Content-type" : "application/json"
+                },
+                body : JSON.stringify({
+                    email : email
+                })
+            });
+
+            const data = await response.json();
+
+            if(!response.ok){
+                return alert(data.message);
+            }
+             // Update expiry baru
+            setOtpExpiry(
+                data.otpExpiredAt
+            );
+
+            // Kosongkan OTP lama
+            setOtp([
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+            ]);
+
+            alert(
+                "New OTP has been sent!"
+            );
+        } catch (error) {
+
+        console.error(
+            "Resend OTP error:",
+            error
+        );
+
+        alert(
+            "Internal server problem!"
+        );
+    }
+    }
+
     return (
         <div className="flex flex-col h-screen justify-center items-center bg-[#0F1724]">
             <h2 className="text-white text-[30px] font-bold font-pixel tracking-[3px] uppercase">Enter OTP sent via <span className="text-yellow-500">Email</span> </h2>
@@ -85,32 +192,32 @@ function OTP(){
 
             <div className="mt-8 w-[500px] grid grid-cols-6 gap-5">
                 <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
-                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" />
+                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" value={otp[0]} onChange={(e) => handleOtpChange(e.target.value, 0)}/>
                 </div>
 
                 <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
-                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" />
+                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" value={otp[1]} onChange={(e) => handleOtpChange(e.target.value, 1)}/>
                 </div>
 
                 <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
-                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" />
+                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" value={otp[2]} onChange={(e) => handleOtpChange(e.target.value, 2)} />
                 </div>
 
                 <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
-                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" />
+                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" value={otp[3]} onChange={(e) => handleOtpChange(e.target.value, 3)}/>
                 </div>
 
                 <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
-                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" />
+                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" value={otp[4]} onChange={(e) => handleOtpChange(e.target.value, 4)}/>
                 </div>
 
                <div className="outline otline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow-500 h-[100px] w-[100px] flex flex-row justify-center items-center w-full rounded-md">
-                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" />
+                    <input type="text" pattern="[0-9]*" maxLength={1} className="text-white h-full w-full border-none outline-none p-2 text-[40px] text-center" value={otp[5]} onChange={(e) => handleOtpChange(e.target.value, 5)}/>
                 </div>
             </div>
 
             <div className="flex flex-row w-full justify-center items-center mt-5">
-                <p className="text-white">Didn&apos;t receive code? <span className="underline tracking-[2px] text-yellow-400 cursor-pointer">Resend</span> </p>
+                <p className="text-white">Didn&apos;t receive code? <span className="underline tracking-[2px] text-yellow-400 cursor-pointer" onClick={handleResend}>Resend</span> </p>
                 <div className="ml-3">
                     {timeLeft > 0 ? (
                         <p className="text-white">
@@ -134,7 +241,7 @@ function OTP(){
             </div>
 
             <div className="flex flex-row w-full justify-center mt-5">
-                <button className="w-[200px] h-[40px] p-2 bg-yellow-500 rounded-md text-white tracking-[2px] cursor-pointer">Verify</button>
+                <button className="w-[200px] h-[40px] p-2 bg-yellow-500 rounded-md text-white tracking-[2px] cursor-pointer" onClick={handleVerify}>Verify</button>
             </div>
         </div>
     )
