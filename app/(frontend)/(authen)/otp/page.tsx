@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 
-export default function OTP(){
+function OTP(){
     //typescript type => nilai dibawah ada 2 nilai sahaja either string or null
     const [otpExpiry, setOtpExpiry] = useState<string | null>(null);
     const [timeLeft, setTimeLeft] = useState(0);
@@ -137,5 +137,18 @@ export default function OTP(){
                 <button className="w-[200px] h-[40px] p-2 bg-yellow-500 rounded-md text-white tracking-[2px] cursor-pointer">Verify</button>
             </div>
         </div>
+    )
+}
+
+//Suspence digunakan untuk menunggu sesuatu yang belum siap sebelum render component tersebut (senang cite => sementara nk tunggu benda tu siap kita tunjuk benda lain dulu)
+// why nextjs kena buat mcm tu => sbb useSearchParams() ialah client hook yg bergantung kepada url sementara
+//fallback tu adalah ui sementara
+export default function OtpSuspence(){
+    return (
+        <Suspense fallback={
+            <div>Loading OTP...</div>
+        }>
+            <OTP/>
+        </Suspense>
     )
 }
