@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 
 function OTP(){
@@ -13,6 +13,7 @@ function OTP(){
     //kita nak ambil daripada url
     const searchParams = useSearchParams();
     const email = searchParams.get("email");
+    const router = useRouter();
 
     //nak buat count down OTP expired
     useEffect( () => {
@@ -125,6 +126,7 @@ function OTP(){
                 return alert(data.message);
             }
 
+            router.push(`/reset-password?email=${encodeURIComponent(email)}`);
             return alert("OTP verified successfully!");
 
         }catch(error){
