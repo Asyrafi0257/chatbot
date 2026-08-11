@@ -3,12 +3,15 @@
 import { Mail, LockKeyhole, MoveRight, Eye, EyeOff  } from "lucide-react"
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image"
 
 export default function Login(){
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const router = useRouter();
 
     const handlePassword = () => {
         setShowPassword(!showPassword);
@@ -40,6 +43,7 @@ export default function Login(){
             setEmail("");
             setPassword("");
 
+            router.push("/dashboard");
             return alert("Login Successfully!");
 
         }catch(error){
