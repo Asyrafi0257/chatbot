@@ -43,7 +43,7 @@ export default function Login(){
             setEmail("");
             setPassword("");
 
-            router.push("/dashboard");
+            router.push(`/dashboard?email=${encodeURIComponent(email)}`);
             return alert("Login Successfully!");
 
         }catch(error){
