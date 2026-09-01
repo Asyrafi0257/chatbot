@@ -41,7 +41,7 @@ export default function Dashboard(){
 
             <div className="flex flex-col mt-13 justify-center items-center w-full">
                 <div className="flex flex-row bg-yellow-500 w-[300px] h-[40px] rounded-md cursor-pointer shadow-[0_0_8px_#facc15] items-center mb-5">
-                    <button className="h-full w-full cursor-pointer text-white font-bold font-pixel tracking-[4px]" onClick={() => router.push("/chat")}>Chat</button>
+                    <button className="h-full w-full cursor-pointer text-white font-bold font-pixel tracking-[4px]" onClick={() => router.push("/chat")}>Ask AI</button>
                 </div>
 
                 <div className="flex flex-row bg-yellow-500 w-[300px] h-[40px] rounded-md cursor-pointer shadow-[0_0_8px_#facc15] items-center mb-5">
