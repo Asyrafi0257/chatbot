@@ -2,6 +2,7 @@
 
 import { Play } from "lucide-react";
 import { useEffect, useState } from "react";
+import  Bumble  from "@/app/component/bumble";
 
 type chatMessage = {
     role: "user" | "assistant";
@@ -13,8 +14,7 @@ export default function Chat(){
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [conversation, setConversation] = useState<chatMessage[]>([]);
     const [userId, setUserId] = useState<number | null>(null);
-
-
+    const [isTyping, setIsTyping] = useState(false);
 
     useEffect(() => {
         const getId = async () => {
@@ -54,14 +54,21 @@ export default function Chat(){
                     role: "user",
                     content: userMessage.message.content
                 },
-                {
+            ]);            
+            setMessage("");
+            setIsTyping(true);
+
+            setTimeout(() => {
+                setIsTyping(false);
+
+                setConversation((prev ) => [
+                ...prev,
+                 {
                     role: "assistant",
                     content: userMessage.assistanceMessage.content
-                }
-            ]);
-
-            
-            setMessage("");
+                },
+            ]); 
+            }, 2000);
 
             return;
 
@@ -81,7 +88,8 @@ export default function Chat(){
                      {conversation.length > 0 ? (
                         <div className="flex flex-col w-full justify-end mb-10">
                             {conversation.map((msg, index) => (
-                                <div key={index} className={ msg.role === "user" ? "flex flex-row w-full justify-end" : "flex flex-row w-full justify-start" } >
+                                <div key={index} className={ msg.role === "user" ? "flex flex-row w-full justify-end mb-8" : "flex flex-row w-full justify-start mb-8" } >
+                                    
                                     <div className={ msg.role === "user" ? "bg-[#facc15] p-2 rounded max-w-[70%]" : "bg-[#334155] p-2 rounded max-w-[70%]" } >
                                         <p className="text-white"> {msg.content} </p>
                                     </div>
@@ -93,8 +101,12 @@ export default function Chat(){
                                 <p className="text-white text-[20px] font-semibold">Please Ask your Ai assistance today.</p>
                             </div>
                         )} 
-                    
-                        
+                     {/* dekat sini nak paparkan bumble message for ai response */}
+                {isTyping && (
+                    <div>
+                        <Bumble/>
+                    </div>
+                )}    
                 </div>
 
                 {/* input for ask AI */}

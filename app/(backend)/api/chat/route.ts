@@ -58,8 +58,26 @@ export async function POST(request : NextRequest){
 
         //hantar message kepada Gemini
         const response = await ai.models.generateContent({
-            model: "gemini-3.6-flash",
-            contents:message
+            model: "gemini-3.5-flash-lite",
+            contents:message,
+            config: {
+            systemInstruction: `
+                You are a helpful AI coding assistant.
+
+                When the user asks for code:
+                - Always provide the actual code.
+                - Put code inside Markdown code blocks.
+                - Specify the programming language after the opening backticks.
+                - Explain the code briefly after the code block.
+                - Do not replace requested code with a text-only explanation.
+
+                Example:
+
+                \`\`\`javascript
+                console.log("Hello World");
+                \`\`\`
+                        `
+                    }
         });
 
         //ambil aiMessage = response.text;
