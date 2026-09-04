@@ -1,7 +1,7 @@
 "use client";
 
-import { Play } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Play, Plus } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 import  Bumble  from "@/app/component/bumble";
 
 type chatMessage = {
@@ -15,6 +15,7 @@ export default function Chat(){
     const [conversation, setConversation] = useState<chatMessage[]>([]);
     const [userId, setUserId] = useState<number | null>(null);
     const [isTyping, setIsTyping] = useState(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         const getId = async () => {
@@ -56,6 +57,10 @@ export default function Chat(){
                 },
             ]);            
             setMessage("");
+            //nak buat size textarea back to normal size
+            if (textareaRef.current) {
+                textareaRef.current.style.height = "auto";
+            }
             setIsTyping(true);
 
             setTimeout(() => {
@@ -76,6 +81,16 @@ export default function Chat(){
             console.log("Server Problem, Please try again");
             return alert("Server Problem, Please try again!");
         }
+    }
+
+    //function for handle input(TextArea)
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const textArea = e.target;
+
+        textArea.style.height = "auto",
+        textArea.style.height = `${textArea.scrollHeight}px`
+
+        setMessage(textArea.value);
     }
 
     return (
@@ -102,22 +117,23 @@ export default function Chat(){
                             </div>
                         )} 
                      {/* dekat sini nak paparkan bumble message for ai response */}
-                {isTyping && (
-                    <div>
-                        <Bumble/>
-                    </div>
-                )}    
+                     {isTyping && (
+                            <div>
+                                <Bumble/>
+                            </div>
+                    )}    
                 </div>
 
                 {/* input for ask AI */}
                 <div className="absolute w-full flex items-center bottom-[20px] justify-center">
-                    <div className="w-[40em] h-[38px] outline outline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-whithin:outline-yellow-600 rounded-2xl flex flex-row justify-center items-center pl-[5px]">
+                    <div className="w-[40em] outline outline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-whithin:outline-yellow-600 rounded-2xl flex flex-row justify-center items-center pl-[5px]">
 
+                        <Plus  className="text-white m-2 shrink-0 self-end"/>
                         {/* Area for user input text */}
-                        <textarea className="w-full h-full outline-none border-none text-white resize-none overflow-y-auto break-words p-[3px]" placeholder="Ask your AI assistance" value={message} onChange={(e) => setMessage(e.target.value)}/>
+                        <textarea className="scrollbar-none w-full max-h-[150px] outline-none border-none text-white resize-none overflow-y-auto break-words" placeholder="Ask your AI assistant" value={message} onChange={handleChange} rows={1} ref={textareaRef}/>
 
                         {/* button submit */}
-                        <div className="w-[80px] flex items-center justify-center">
+                        <div className="w-[80px] flex justify-center shrink-0 self-end pb-1">
                             <button className="bg-[#0F1724] rounded-2xl h-8 w-8 p-1 cursor-pointer shadow-[0_0_3px_#facc15]" onClick={handleSend}>
                                 <Play className="text-yellow-300"/>
                             </button>
