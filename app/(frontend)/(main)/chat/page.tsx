@@ -3,6 +3,7 @@
 import { Play, Plus } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import  Bumble  from "@/app/component/bumble";
+import { useRouter } from "next/navigation";
 
 type chatMessage = {
     role: "user" | "assistant";
@@ -16,6 +17,7 @@ export default function Chat(){
     const [userId, setUserId] = useState<number | null>(null);
     const [isTyping, setIsTyping] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const router = useRouter();
 
     useEffect(() => {
         const getId = async () => {
@@ -24,7 +26,7 @@ export default function Chat(){
             setUserId(data.user.id);
         };
         getId();
-    }, [userId]);
+    }, []);
 
     const handleSend = async () => {
         try{   
@@ -93,6 +95,32 @@ export default function Chat(){
         setMessage(textArea.value);
     }
 
+    //button handleNew
+    const handleNew = async () => {
+        try{
+            const res = await fetch("/api/conversation", {
+                method: "POST",
+                headers : {
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify({
+                    userId : userId
+                })
+            });
+
+            const newChat = await res.json();
+
+            if(!res.ok){
+                return alert(newChat.message);
+            }
+
+            router.push(`/chat/${newChat.conversation.id}`);
+
+        }catch(error){
+            return alert("Internal Problem, Please try again!");
+        }
+    }
+
     return (
         <div className="h-screen bg-[#0F172A] flex justify-center items-center">
             <div className="relative bg-[#1E293B] w-[800px] h-[700px] rounded-xl shadow-[0_0_10px_#facc15] p-5">
@@ -128,7 +156,7 @@ export default function Chat(){
                 <div className="absolute w-full flex items-center bottom-[20px] justify-center">
                     <div className="w-[40em] outline outline-1 outline-offset-1 outline-yellow-400 focus-within:outline-2 focus-within:outline-offset-2 focus-whithin:outline-yellow-600 rounded-2xl flex flex-row justify-center items-center pl-[5px]">
 
-                        <Plus  className="text-white m-2 shrink-0 self-end"/>
+                        <Plus  className="text-white m-2 shrink-0 self-end hover:bg-[#334155] rounded-xl cursor-pointer" onClick={handleNew}/>
                         {/* Area for user input text */}
                         <textarea className="scrollbar-none w-full max-h-[150px] outline-none border-none text-white resize-none overflow-y-auto break-words" placeholder="Ask your AI assistant" value={message} onChange={handleChange} rows={1} ref={textareaRef}/>
 
